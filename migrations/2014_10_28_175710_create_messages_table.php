@@ -30,6 +30,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(Models::table('messages'));
+        Schema::dropIfExists(Models::table('messenger_messages'));
     }
 }
