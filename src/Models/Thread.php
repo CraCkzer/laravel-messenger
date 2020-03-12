@@ -24,14 +24,14 @@ class Thread extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['subject'];
+    protected $fillable = ['subject','offer_id'];
 
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
      * Internal cache for creator.
@@ -422,5 +422,12 @@ class Thread extends Eloquent
     public function userUnreadMessagesCount($userId)
     {
         return $this->userUnreadMessages($userId)->count();
+    }
+    
+    public function otherParticipant(\App\Models\User $user = null)
+    {
+        $user_id = $user ? $user->id : \Auth::id();
+
+        return $this->participants->where('user_id', '<>', $user_id)->first()->user;
     }
 }
