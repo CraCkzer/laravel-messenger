@@ -37,6 +37,10 @@ class Message extends Eloquent
      * @var array
      */
     protected $dates = ['deleted_at'];
+    
+    protected $rules = [
+        'body' => 'required',
+    ];
 
     /**
      * {@inheritDoc}
@@ -58,6 +62,11 @@ class Message extends Eloquent
     public function thread()
     {
         return $this->belongsTo(Models::classname(Thread::class), 'thread_id', 'id');
+    }
+    
+    public function thread_messenger()
+    {
+        return $this->belongsTo(Models::classname(Thread::class), 'thread_id', 'id')->where('offer_id', null);
     }
 
     /**
